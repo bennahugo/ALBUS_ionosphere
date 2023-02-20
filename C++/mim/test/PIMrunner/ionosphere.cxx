@@ -43,7 +43,13 @@ extern "C" int jma_igrf13syn(
                   //                      z--local down 
     );
 
-
+extern "C" int magdip_aips(
+    float* glat, // latitude in radians
+    float* glon, // longitude in radians
+    float* radius,// I  the position radius, in meters
+    float *xyz__        
+                // note the direction switcharoo to igrf11 or igrf13         
+    );
 
 
 
@@ -1381,22 +1387,38 @@ Space_Vector Ionosphere_Base::Magnetic_Field(
     
     // I need a place to store the magnetic field components
     Real64 x,y,z;
-
+    Real64 x2,y2,z2;
+    
 //    fprintf(stdout, "In Ionosphere_Base::Magnetic_Field - calling jma_igrf13syn\n");
 //    fprintf(stderr,"Using Position year=%.3f r=%14E Lat=%.3f Lon=%.3f\n",
 //              year_fraction, position.Radius(),
 //              position.Lat()*M_RAD2DEG,position.Lon()*M_RAD2DEG);
+    float xyz__[3];
+    float lat = (float) position.Lat();
+    float lon = (float) position.Lon();
+    float radius = (float) position.Radius();
+    magdip_aips(&lat,
+                &lon,
+                &radius,
+                &xyz__[0]
+                );
+    Real64 gauss2nT = 1/100000.;
+    x = gauss2nT * (Real64) xyz__[2];
+    y = gauss2nT * (Real64) xyz__[1];
+    z = gauss2nT * (Real64) -xyz__[0]; // AIPS MAGDIP is up from the surface vs IGRF which is down into planet
+    fprintf(stderr,"For B field using lat=%14E lon=%14E radius=%14E\n",lat,lon,radius);
+    fprintf(stderr,"Got MAGDIP B field x=%14E y=%14E z=%14E\n",x,y,z);
     jma_igrf13syn(year_fraction,
-                  position.Radius(),
+                  position.Radius() * 1e-3,
                   position.cLat(),
                   position.sLat(),
                   position.cLon(),
                   position.sLon(),
-                  &x,
-                  &y,
-                  &z
+                  &x2,
+                  &y2,
+                  &z2
                   );
-
+    fprintf(stderr,"Got IGRF13 B field x=%14E y=%14E z=%14E\n",x2,y2,z2);
 //   fprintf(stderr,"Got IGRF13 B field x=%14E y=%14E z=%14E\n",x,y,z);//exit(1);
 
     // Make a space vector out of the magnetic field.

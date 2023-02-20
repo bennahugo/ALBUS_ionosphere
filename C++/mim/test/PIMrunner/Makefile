@@ -80,6 +80,7 @@ SRCS = \
 	ionosphere_iriplus.cxx \
 	ionosphere_pim.cxx \
 	jma_igrf13.c \
+	MAGDIP.c \
 	latlon_cart.cxx \
 	linfit.cxx \
 	linfit_grad.cxx \
@@ -119,6 +120,7 @@ OBJS = \
 	ionosphere_iriplus.o \
 	ionosphere_pim.o \
 	jma_igrf13.o \
+	MAGDIP.o \
 	latlon_cart.o \
 	linfit.o \
 	linfit_grad.o \

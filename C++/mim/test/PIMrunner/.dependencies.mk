@@ -225,6 +225,7 @@ ionosphere_pim.o: ionosphere_pim.cxx \
   station_reference.h \
   /.aux_mnt/pc20021a/albus/ALBUS/include/jma_irisub_c.h
 jma_igrf11.o: jma_igrf11.c
+MAGDIP.o: MAGDIP.c
 latlon_cart.o: latlon_cart.cxx \
   /.aux_mnt/pc20021a/albus/ALBUS/include/JMA_math.h \
   /.aux_mnt/pc20021a/albus/ALBUS/include/JMA_code.h latlon_cart.h \
