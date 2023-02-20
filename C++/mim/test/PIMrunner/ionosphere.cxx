@@ -1409,7 +1409,7 @@ Space_Vector Ionosphere_Base::Magnetic_Field(
     fprintf(stderr,"For B field using lat=%14E lon=%14E radius=%14E\n",lat,lon,radius);
     fprintf(stderr,"Got MAGDIP B field x=%14E y=%14E z=%14E\n",x,y,z);
     jma_igrf13syn(year_fraction,
-                  position.Radius() * 1e-3,
+                  position.Radius(),
                   position.cLat(),
                   position.sLat(),
                   position.cLon(),
