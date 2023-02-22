@@ -1402,12 +1402,12 @@ Space_Vector Ionosphere_Base::Magnetic_Field(
                 &radius,
                 &xyz__[0]
                 );
-    Real64 gauss2nT = 1/100000.;
-    x = gauss2nT * (Real64) xyz__[2];
-    y = gauss2nT * (Real64) xyz__[1];
-    z = gauss2nT * (Real64) -xyz__[0]; // AIPS MAGDIP is up from the surface vs IGRF which is down into planet
+    Real64 gauss2T = 1.0e-4;
+    x = gauss2T * (Real64) xyz__[2];
+    y = gauss2T * (Real64) xyz__[1];
+    z = gauss2T * (Real64) -xyz__[0]; // AIPS MAGDIP is up from the surface vs IGRF which is down into planet
     fprintf(stderr,"For B field using lat=%14E lon=%14E radius=%14E\n",lat,lon,radius);
-    fprintf(stderr,"Got MAGDIP B field x=%14E y=%14E z=%14E\n",x,y,z);
+    fprintf(stderr,"Got MAGDIP B field x=%14E y=%14E z=%14E --- quadrature %14E nT\n",x,y,z,sqrt(x*x+y*y+z*z)*1e9);
     jma_igrf13syn(year_fraction,
                   position.Radius(),
                   position.cLat(),
@@ -1418,7 +1418,7 @@ Space_Vector Ionosphere_Base::Magnetic_Field(
                   &y2,
                   &z2
                   );
-    fprintf(stderr,"Got IGRF13 B field x=%14E y=%14E z=%14E\n",x2,y2,z2);
+    fprintf(stderr,"Got IGRF13 B field x=%14E y=%14E z=%14E --- quadrature %14E nT\n",x2,y2,z2,sqrt(x2*x2+y2*y2+z2*z2)*1e9);
 //   fprintf(stderr,"Got IGRF13 B field x=%14E y=%14E z=%14E\n",x,y,z);//exit(1);
 
     // Make a space vector out of the magnetic field.
