@@ -3,7 +3,10 @@
 # 2006 Jul 17  James M Anderson  --JIVE  start
 # 2023 Mar  4  A.G. Willis -- handle long product file names
 
-#from __future__ import (print_function)
+
+
+global DEBUG_SET 
+DEBUG_SET = False
 
 ################################################################################
 # some import commands  The User should not need to change this.
@@ -72,7 +75,7 @@ URL_GETTER = "Albus_RINEX_download.py"
 FTP_GETTER = "Albus_RINEX_userftp.py"
 FTP_GETTER_ALLOW = True
 
-_ISO_COUNTRY_CODES = ['AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND', 'AGO', 'AIA', 'ATA', 'ATG', 'ARG', 'ARM', 'ABW', 'AUS', 'AUT', 'AZE', 'BHS', 'BHR', 'BGD', 'BRB', 'BLR', 'BEL', 'BLZ', 'BEN', 'BMU', 'BTN', 'BOL', 'BES', 'BIH', 'BWA', 'BVT', 'BRA', 'IOT', 'BRN', 'BGR', 'BFA', 'BDI', 'CPV', 'KHM', 'CMR', 'CAN', 'CYM', 'CAF', 'TCD', 'CHL', 'CHN', 'CXR', 'CCK', 'COL', 'COM', 'COG', 'COD', 'COK', 'CRI', 'CIV', 'HRV', 'CUB', 'CUW', 'CYP', 'CZE', 'DNK', 'DJI', 'DMA', 'DOM', 'ECU', 'EGY', 'SLV', 'GNQ', 'ERI', 'EST', 'SWZ', 'ETH', 'FLK', 'FRO', 'FJI', 'FIN', 'FRA', 'GUF', 'PYF', 'ATF', 'GAB', 'GMB', 'GEO', 'DEU', 'GHA', 'GIB', 'GRC', 'GRL', 'GRD', 'GLP', 'GUM', 'GTM', 'GGY', 'GIN', 'GNB', 'GUY', 'HTI', 'HMD', 'VAT', 'HND', 'HKG', 'HUN', 'ISL', 'IND', 'IDN', 'IRN', 'IRQ', 'IRL', 'IMN', 'ISR', 'ITA', 'JAM', 'JPN', 'JEY', 'JOR', 'KAZ', 'KEN', 'KIR', 'PRK', 'KOR', 'KWT', 'KGZ', 'LAO', 'LVA', 'LBN', 'LSO', 'LBR', 'LBY', 'LIE', 'LTU', 'LUX', 'MAC', 'MDG', 'MWI', 'MYS', 'MDV', 'MLI', 'MLT', 'MHL', 'MTQ', 'MRT', 'MUS', 'MYT', 'MEX', 'FSM', 'MDA', 'MCO', 'MNG', 'MNE', 'MSR', 'MAR', 'MOZ', 'MMR', 'NAM', 'NRU', 'NPL', 'NLD', 'NCL', 'NZL', 'NIC', 'NER', 'NGA', 'NIU', 'NFK', 'MKD', 'MNP', 'NOR', 'OMN', 'PAK', 'PLW', 'PSE', 'PAN', 'PNG', 'PRY', 'PER', 'PHL', 'PCN', 'POL', 'PRT', 'PRI', 'QAT', 'REU', 'ROU', 'RUS', 'RWA', 'BLM', 'SHN', 'KNA', 'LCA', 'MAF', 'SPM', 'VCT', 'WSM', 'SMR', 'STP', 'SAU', 'SEN', 'SRB', 'SYC', 'SLE', 'SGP', 'SXM', 'SVK', 'SVN', 'SLB', 'SOM', 'ZAF', 'SGS', 'SSD', 'ESP', 'LKA', 'SDN', 'SUR', 'SJM', 'SWE', 'CHE', 'SYR', 'TWN', 'TJK', 'TZA', 'THA', 'TLS', 'TGO', 'TKL', 'TON', 'TTO', 'TUN', 'TUR', 'TKM', 'TCA', 'TUV', 'UGA', 'UKR', 'ARE', 'GBR', 'USA', 'UMI', 'URY', 'UZB', 'VUT', 'VEN', 'VNM', 'VGB', 'VIR', 'WLF', 'ESH', 'YEM', 'ZMB', 'ZWE']
+_ISO_COUNTRY_CODES = ['AFG', 'ALA', 'ALB', 'DZA', 'ASM', 'AND', 'AGO', 'AIA', 'ATA', 'ATG', 'ARG', 'ARM', 'ABW', 'AUS', 'AUT', 'AZE', 'BHS', 'BHR', 'BGD', 'BRB', 'BLR', 'BEL', 'BLZ', 'BEN', 'BMU', 'BTN', 'BOL', 'BES', 'BIH', 'BWA', 'BVT', 'BRA', 'IOT', 'BRN', 'BGR', 'BFA', 'BDI', 'CPV', 'KHM', 'CMR', 'CAN', 'CYM', 'CAF', 'TCD', 'CHL', 'CHN', 'CXR', 'CCK', 'COL', 'COM', 'COG', 'COD', 'COK', 'CRI', 'CIV', 'HRV', 'CUB', 'CUW', 'CYP', 'CZE', 'DNK', 'DJI', 'DMA', 'DOM', 'ECU', 'EGY', 'SLV', 'GNQ', 'ERI', 'EST', 'SWZ', 'ETH', 'FLK', 'FRO', 'FJI', 'FIN', 'FRA', 'GUF', 'PYF', 'ATF', 'GAB', 'GMB', 'GEO', 'DEU', 'GHA', 'GIB', 'GRC', 'GRL', 'GRD', 'GLP', 'GUM', 'GTM', 'GGY', 'GIN', 'GNB', 'GUY', 'HTI', 'HMD', 'VAT', 'HND', 'HKG', 'HUN', 'ISL', 'IND', 'IDN', 'IRN', 'IRQ', 'IRL', 'IMN', 'ISR', 'ITA', 'JAM', 'JPN', 'JEY', 'JOR', 'KAZ', 'KEN', 'KIR', 'PRK', 'KOR', 'KWT', 'KGZ', 'LAO', 'LVA', 'LBN', 'LSO', 'LBR', 'LBY', 'LIE', 'LTU', 'LUX', 'MAC', 'MDG', 'MWI', 'MYS', 'MDV', 'MLI', 'MLT', 'MHL', 'MTQ', 'MRT', 'MUS', 'MYT', 'MEX', 'FSM', 'MDA', 'MCO', 'MNG', 'MNE', 'MSR', 'MAR', 'MOZ', 'MMR', 'NAM', 'NRU', 'NPL', 'NLD', 'NCL', 'NZL', 'NIC', 'NER', 'NGA', 'NIU', 'NFK', 'MKD', 'MNP', 'NOR', 'OMN', 'PAK', 'PLW', 'PSE', 'PAN', 'PNG', 'PRY', 'PER', 'PHL', 'PCN', 'POL', 'PRT', 'PRI', 'QAT', 'REU', 'ROU', 'RUS', 'RWA', 'BLM', 'SHN', 'KNA', 'LCA', 'MAF', 'SPM', 'VCT', 'WSM', 'SMR', 'STP', 'SAU', 'SEN', 'SRB', 'SYC', 'SLE', 'SGP', 'SXM', 'SVK', 'SVN', 'SLB', 'SOM', 'ZAF', 'SGS', 'SSD', 'ESP', 'LKA', 'SDN', 'SUR', 'SJM', 'SWE', 'CHE', 'SYR', 'TWN', 'TJK', 'TZA', 'THA', 'TLS', 'TGO', 'TKL', 'TON', 'TTO', 'TUN', 'TUR', 'TKM', 'TCA', 'TUV', 'UGA', 'UKR', 'ARE', 'GBR', 'USA', 'UMI', 'URY', 'UZB', 'VUT', 'VEN', 'VNM', 'VGB', 'VIR', 'WLF', 'ESH', 'YEM', 'ZMB', 'ZWE','XXX']
 
 _RINEX_SITE_LIST_EUROPE =  ['acor', 'adar', 'agrn', 'ajac', 'alac', 'alba', 'alme', 'ank2', 'aqui', 'ara2', 'argi', 'aris', 'arj6', 'asir', 'aubg', 'aut1', 'autn', 'axpv', 'baca', 'badh', 'baia', 'baut', 'bbys', 'bcln', 'bell', 'birg', 'bisk', 'bme1', 'boge', 'bogi', 'bogo', 'bolg', 'bor1', 'borj', 'borr', 'bpdl', 'brmf', 'brmg', 'brst', 'brts', 'brux', 'bscn', 'bsvz', 'bucu', 'budd', 'budp', 'bute', 'bydg', 'bzr2', 'cace', 'cag1', 'cako', 'cant', 'carg', 'casc', 'case', 'cebr', 'ceu1', 'cfrm', 'chio', 'chiz', 'clib', 'cniv', 'coba', 'como', 'cost', 'cpar', 'crak', 'creu', 'ctab', 'dare', 'delf', 'dent', 'deva', 'dgor', 'diep', 'dill', 'dlf1', 'dnmu', 'dour', 'drag', 'dub2', 'duth', 'dvcn', 'dyng', 'ebre', 'eglt', 'eijs', 'elba', 'enao', 'enis', 'entz', 'enza', 'esco', 'eusk', 'ffmj', 'fins', 'flrs', 'foyl', 'fra2', 'frne', 'func', 'gaia', 'galh', 'ganp', 'gari', 'gdrs', 'gell', 'geno', 'glsv', 'goet', 'goml', 'gop6', 'gope', 'gor2', 'grac', 'gras', 'graz', 'gsr1', 'guip', 'gwwl', 'has6', 'hel2', 'helg', 'hers', 'hert', 'hett', 'hobu', 'hofj', 'hofn', 'huel', 'ibiz', 'ieng', 'igeo', 'igm2', 'igmi', 'ignf', 'ijmu', 'ildx', 'invr', 'irbe', 'isrn', 'ista', 'izan', 'izmi', 'joe2', 'joen', 'jon6', 'joz2', 'joze', 'kad6', 'karl', 'kato', 'kda2', 'kev2', 'khar', 'kilp', 'kir0', 'kir8', 'kiru', 'kiv2', 'klnk', 'klop', 'knja', 'kos1', 'kra1', 'kraw', 'krrs', 'krs1', 'ktvl', 'kunz', 'kure', 'kuu2', 'lago', 'lama', 'lamp', 'larm', 'ldb2', 'leij', 'lek6', 'leon', 'leri', 'licc', 'lida', 'lign', 'lil2', 'linz', 'lliv', 'lodz', 'lov6', 'lpal', 'lroc', 'm0se', 'mad2', 'madr', 'mala', 'mall', 'man2', 'mar6', 'mar7', 'marp', 'mars', 'mas1', 'mat1', 'mate', 'matg', 'mdvj', 'medi', 'meli', 'mers', 'met3', 'metg', 'mets', 'mik3', 'mikl', 'mkrs', 'mlhd', 'mlvl', 'mnkw', 'mnsk', 'mogi', 'mop2', 'mopi', 'mops', 'morp', 'msel', 'muk2', 'nabg', 'newl', 'nico', 'noa1', 'nor7', 'not1', 'novp', 'npaz', 'nya1', 'nya2', 'nyal', 'obe4', 'olk2', 'ons1', 'onsa', 'orid', 'oriv', 'oros', 'osk6', 'osls', 'ost6', 'oul2', 'ove6', 'pado', 'pasa', 'pat0', 'pdel', 'penc', 'pfa3', 'pins', 'pmth', 'polv', 'pore', 'pots', 'pous', 'poze', 'ppsh', 'prat', 'pryl', 'psto', 'pstv', 'ptbb', 'pulk', 'puyv', 'pyha', 'pza2', 'qaq1', 'rabt', 'raeg', 'rah1', 'ramo', 'rant', 'redu', 'redz', 'reyk', 'riga', 'rio1', 'rivo', 'rom2', 'rove', 'rvne', 'saba', 'sala', 'sart', 'sas2', 'savu', 'sbg2', 'scil', 'scoa', 'scor', 'sfer', 'shoe', 'sjdv', 'ske0', 'ske8', 'smla', 'sneo', 'snik', 'sod3', 'soda', 'sofi', 'sons', 'sprn', 'spt0', 'spt7', 'srjv', 'stas', 'stnb', 'sul5', 'suld', 'sulp', 'sun6', 'sur4', 'sve6', 'svll', 'svtl', 'swas', 'swki', 'tar0', 'teos', 'ter2', 'terc', 'ters', 'teru', 'tit2', 'tll1', 'tlmf', 'tlse', 'tlsg', 'toil', 'tor1', 'tori', 'torn', 'trds', 'treu', 'trf2', 'trmi', 'tro1', 'tubi', 'tubo', 'tuc2', 'tuo2', 'uben', 'ucag', 'ume6', 'unpg', 'untr', 'usal', 'usdl', 'uzhl', 'vaa2', 'vaas', 'vaco', 'vae6', 'vala', 'vale', 'vars', 'ven1', 'vfch', 'vigo', 'vil0', 'vil6', 'vill', 'vir2', 'virg', 'vis0', 'vis6', 'vitr', 'vlis', 'vln1', 'vlns', 'vnrs', 'ware', 'warn', 'wrlg', 'wroc', 'wsrt', 'wtza', 'wtzr', 'wtzs', 'wtzz', 'wuth', 'yebe', 'zada', 'zara', 'zeck', 'zim2', 'zimm', 'zouf', 'zprs', 'zywi', 'zzon']
 
@@ -114,29 +117,39 @@ class RINEX_Data_Barf(IOError):
 #   print('cddis file written out')
 #  return
 
+##################################
+def set_debug_option(debug_option):
+  DEBUG_SET = debug_option
+  print('Albus_RINEX setting debug_option to',debug_option)
+
 ################################################################################
 def get_rinex3_filename(RINEX_filename, country):
    print('incoming parameters', RINEX_filename, country)
    RINEX3_filename = None
    process = Popen(['RX3name', RINEX_filename],stdout=PIPE)
    (output, err) = process.communicate()
-   print('output', output)
+   if DEBUG_SET:
+     print('output', output)
    if str(output).find('Station Name not found') > -1:
-      print('initial station not found \n')
+      if DEBUG_SET:
+        print('initial station not found \n')
       if country in _ISO_COUNTRY_CODES:
         command = 'RX3name ' + RINEX_filename +  ' 00' + country
-        print('command', command, '\n')
+        if DEBUG_SET:
+          print('command', command, '\n')
         process =Popen(shlex.split(command), stdout=PIPE)
         (output, err) = process.communicate()
-        print('second output', output, '\n')
-        print('err`', err, '\n')
+        if DEBUG_SET:
+          print('second output', output, '\n')
+          print('err`', err, '\n')
         if str(output).find('Station Name not found') < 0:
            RINEX3_filename = output.decode('utf-8')[:-2]
       else:
         print('invalid country')
    else:
       RINEX3_filename = output.decode('utf-8')[:-2]
-   print('RINEX3_filename', RINEX3_filename)
+   if DEBUG_SET:
+     print('RINEX3_filename', RINEX3_filename)
    return  RINEX3_filename
 
 ################################################################################
@@ -251,11 +264,13 @@ outfile  O  The local filename to write this to
 No returns.  If there is an error, raises a No_RINEX_File_Error or
 a Command_Timeout_Error
 """
-    sys.stdout.write("Trying %s\n"%infile)
-    print(' in get_url to get ', infile, outfile)
+    if DEBUG_SET:
+      sys.stdout.write("Trying %s\n"%infile)
+      print(' in get_url to get ', infile, outfile)
     try:
         computer = infile.split('/')
-        print('*** computer is ', computer)
+        if DEBUG_SET:
+          print('*** computer is ', computer)
         if(len(computer) < 2):
             raise IOError("Bad computer name '%s'"%infile)
         computer = computer[2]
@@ -268,20 +283,23 @@ a Command_Timeout_Error
                                 [URL_GETTER, infile, outfile,
                                  "%d"%DEFAULT_TIMEOUT],
                                 DEFAULT_TIMEOUT)
-        print('get_url had success')
+        if DEBUG_SET:
+           print('get_url had success')
     except Command_Timeout_Error:
         # if there is a file there, it is corrupted
         if(os.path.isfile(outfile)):
           try:
             command = '/bin/rm -rf ' + outfile
-            print('get_url commanf timeout error')
-            print('get_url executing command',command)
+            if DEBUG_SET:
+              print('get_url commanf timeout error')
+              print('get_url executing command',command)
             os.system(command)
           except:
             os.remove(outfile)
         raise
     test_downloaded_RINEX(outfile, min_size)
-    print('get_url successfully completed')
+    if DEBUG_SET:
+       print('get_url successfully completed')
     return
 get_url.computer_dict = {}
 #get_url.computer_dict["jop30"] = [None,None]
@@ -320,7 +338,8 @@ def gunzip_some_file(compressed_file,
                      delete_file = 1,
                      RX3_flag=False):
  
-    print ( '*** uncompressing file 1 to file 2 ', compressed_file, uncompressed_file, RX3_flag)
+    if DEBUG_SET:
+      print ( '*** uncompressing file 1 to file 2 ', compressed_file, uncompressed_file, RX3_flag)
 # if file is already uncompressed, do nothing
     if compressed_file == uncompressed_file:
       return
@@ -328,7 +347,8 @@ def gunzip_some_file(compressed_file,
     file_size = os.path.getsize(compressed_file)
     if(file_size <= 0):
         # file < min_size bytes for RINEX data?  Bad!
-        print ( '********** zero sized compressed file  ', compressed_file)
+        if DEBUG_SET:
+          print ( '********** zero sized compressed file  ', compressed_file)
         try:
           command = '/bin/rm -rf ' + compressed_file
           os.system(command)
@@ -355,9 +375,11 @@ def gunzip_some_file(compressed_file,
       command = "unzip -np %s '*d' > %s"%(compressed_file,uncompressed_file)
     else:   
       command = "gunzip -dc %s > %s"%(compressed_file,uncompressed_file)
-    print ( 'gunzip executing ', command)
+    if DEBUG_SET:
+      print ( 'gunzip executing ', command)
     retcode = os.system(command)
-    print ( 'gunzip returned ', retcode)
+    if DEBUG_SET:
+      print ( 'gunzip returned ', retcode)
 # handle non-zero return code error from extraction 
     if RX3_flag:
        uncompressed_file = convert_rnx3_to_rnx2_file(uncompressed_file)
@@ -403,11 +425,14 @@ overwrite         I  May files be overwritten?  0 No, else yes
 
 OUTPUTS:  None
 """
-    print ('in get_RINEX_obs_file_from_web with FTP_site =', FTP_site )
+    if DEBUG_SET:
+      print ('in get_RINEX_obs_file_from_web with FTP_site =', FTP_site )
     assert(FTP_site >= 0)
     RINEX_filename = RINEX_data[0]
     country = RINEX_data[1]
-    print('*** get_RINEX_obs_file_from_web: original RINEX2 file and country requested', RINEX_filename, country)
+    if DEBUG_SET:
+      print('*** get_RINEX_obs_file_from_web: original RINEX2 file and country requested', RINEX_filename, country)
+  
     RX3_flag = False
     our_file = output_directory + '/' + RINEX_filename
     # First, if we have run out of FTP sites, bail
@@ -486,7 +511,8 @@ OUTPUTS:  None
     if(year >= 2000): yy = year - 2000
     site_str = ""
     if(FTP_site == 0 or FTP_site == 1 ):
-        print('calling SOPAC')
+        if DEBUG_SET:
+          print('calling SOPAC')
         # SOPAC California
         if FTP_site == 0:
           if(RINEX_filename[-1] == 'd'):
@@ -498,7 +524,8 @@ OUTPUTS:  None
           if year >= 2020:   # try RINEX3
             RX3_flag = True
             RINEX3_filename = get_rinex3_filename(RINEX_filename, country)
-            print('SOPAC RINEX3_filename', RINEX3_filename)
+            if DEBUG_SET:
+                print('SOPAC RINEX3_filename', RINEX3_filename)
             if RINEX3_filename is None:
               pass
             else:
@@ -528,11 +555,13 @@ OUTPUTS:  None
           site_str = "ftp://epncb.oma.be/pub/obs/%4.4d/%3.3d/%s.Z"%(year, doy, RINEX_filename.upper())
         else:   # try rinex 3
           RX3_flag = True
-          print('converting to RINEX3 file name from RINEX2 name: ', RINEX_filename)
+          if DEBUG_SET:
+            print('converting to RINEX3 file name from RINEX2 name: ', RINEX_filename)
           output = subprocess.Popen(['RX3name', RINEX_filename],
                           stdout=subprocess.PIPE).communicate()[0]
           RINEX3_filename = output.decode('utf-8')[:-2]
-          print('Belgium RINEX3_filename', RINEX3_filename)
+          if DEBUG_SET:
+            print('Belgium RINEX3_filename', RINEX3_filename)
           our_file = output_directory + '/' + RINEX_filename
           our_Z_file = output_directory + '/' + RINEX3_filename + '.gz'
           site_str = "ftp://epncb.oma.be/pub/obs/%4.4d/%3.3d/%s.gz"%(year, doy, RINEX3_filename)
@@ -543,7 +572,8 @@ OUTPUTS:  None
         # Australia site
         if year >= 2020:   # need RINEX3
           RX3_flag = True
-          print('converting to RINEX3 file name from RINEX2 name: ', RINEX_filename)
+          if DEBUG_SET:
+            print('converting to RINEX3 file name from RINEX2 name: ', RINEX_filename)
           RINEX3_filename = get_rinex3_filename(RINEX_filename, country)
           if RINEX3_filename is None:
             pass
@@ -554,26 +584,30 @@ OUTPUTS:  None
         else:
           our_file = output_directory + '/' + RINEX_filename 
           our_Z_file = output_directory + '/' + RINEX_filename + '.gz'
-          print('trying to get ',  our_file )
+          if DEBUG_SET:
+            print('trying to get ',  our_file )
           RX3_flag = False
           site_str = "sftp.data.gnss.ga.gov.au/rinex/daily/%4.4d/%3.3d/%s.gz"%(year, doy, RINEX_filename)
-        print('trying to get ',  our_file )
-        print ( '*********** accessing Australian FTP site!')
-        print('site string', site_str)
+        if DEBUG_SET:
+          print('trying to get ',  our_file )
+          print ( '*********** accessing Australian FTP site!')
+          print('site string', site_str)
     elif(FTP_site == 7):
             site_str = "ftp://gnss1.tudelft.nl/rinex/%4.4d/%3.3d/%s.Z"%(year, doy, RINEX_filename)
     elif(FTP_site == 8):
         pass
     elif(FTP_site == 9):
         # South Africa Trignet
-        print ( '*********** accessing South African Trignet FTP site!')
+        if DEBUG_SET:
+          print ( '*********** accessing South African Trignet FTP site!')
         ftp_file_name = RINEX_filename[0:7].upper()+'Z.zip'
         site_str = "ftp://ftp.trignet.co.za/RefData.%2.2d/%3.3d/L1L2_30sec/%s"%(year-2000, doy, ftp_file_name)
         our_Z_file = output_directory + '/' + ftp_file_name
     elif(FTP_site == 10):
         # New Zealand GeoNet and LINZ servers
-        print ( '*********** accessing New Zealand FTP site!')
-        print('nz RINEX file name ', RINEX_filename)
+        if DEBUG_SET:
+          print ( '*********** accessing New Zealand FTP site!')
+          print('nz RINEX file name ', RINEX_filename)
         if RINEX_filename[11] == 'o':
            site_str = "https://data.geonet.org.nz/gnss/rinex/%4.4d/%3.3d/%s.gz"%(year, doy, RINEX_filename)
 
@@ -732,7 +766,8 @@ filename      O  filename of IONEX file, no directory path
         filename = "%s%4.4d%3.3d%s"%(start_str,year, doy, end_str)
     else: 
         filename = "%3.3s%1.1s%3.3d0.%2.2di"%(group_name,b,doy,yy)
-    print('IONEX filename is ', filename)
+    if DEBUG_SET: 
+      print('IONEX filename is ', filename)
     return filename
 
 
@@ -762,7 +797,8 @@ return_code       O  Status of getting file from web
                       0 all ok
                      -1 could not find on any FTP site
 """
-    print ( 'in get_GPS_ephemeris_file_from_web with FTP_site =', FTP_site )
+    if DEBUG_SET: 
+      print ( 'in get_GPS_ephemeris_file_from_web with FTP_site =', FTP_site )
     assert(FTP_site >= 0)
     # First, if we have run out of FTP sites, bail
     if(FTP_site > 6):
@@ -805,7 +841,8 @@ return_code       O  Status of getting file from web
     if FTP_site == 0:
        # cddis
        if use_cddis:
-         print('TRYING CDDIS for EPHEMERIS FILE', ephemeris_filename)
+         if DEBUG_SET: 
+           print('TRYING CDDIS for EPHEMERIS FILE', ephemeris_filename)
          if ephemeris_filename.find('jpl') >= 0:
              site_str = "https://cddis.nasa.gov/archive/gnss/products/%4.4d/%s.Z"%(gps_week, ephemeris_filename)
          else:
@@ -829,7 +866,8 @@ return_code       O  Status of getting file from web
           site_str = "ftp://ftp.aiub.unibe.ch/CODE/%4.4d/%s.Z"%(year, data_file)
         else:
           site_str = "ftp://ftp.aiub.unibe.ch/CODE/%4.4d/%s.gz"%(year, data_file)
-        print('we should be using CODE site string:', site_str)
+        if DEBUG_SET: 
+           print('we should be using CODE site string:', site_str)
     else:
         return -1
         raise KeyError("Unknown ephemeris FTP site")
@@ -883,7 +921,8 @@ return_code       O  Status of getting file from web
                       0 all ok
                      -1 could not find on any FTP site
 """
-    print ( 'in get_IONEX_file_from_web FTP_site =', FTP_site)
+    if DEBUG_SET: 
+       print ( 'in get_IONEX_file_from_web FTP_site =', FTP_site)
     assert(FTP_site >= 0)
     # First, if we have run out of FTP sites, bail
     if(FTP_site > 3):
@@ -975,8 +1014,9 @@ P1P2_filename     O  The path+name of the P1P2 differential code bias file.
                      If no file found, or other error, this will be set to
                      None.
 """
-    print ('in get_CODE_P1P2_file_from_web')
-    print('incoming parameters ', year, month, data_type)
+    if DEBUG_SET: 
+      print ('in get_CODE_P1P2_file_from_web')
+      print('incoming parameters ', year, month, data_type)
     # First, check that there is a possibility of data
     if((year > 1997) or ((year == 1997) and (month >= 10))):
         pass
@@ -1740,21 +1780,24 @@ overwrite                  I  May files be overwritten?  0 No, else yes
         standard_RINEX_bias_correction_wrapper.last_doy = doy
         # Now get the new bias files.  Start with IONEX
         IONEX_name = make_IONEX_filename('cod',0,year,doy)
-        print ( '.... IONEX_name', IONEX_name)
+        if DEBUG_SET: 
+            print ( '.... IONEX_name', IONEX_name)
         return_code = get_IONEX_file_from_web(IONEX_name,
                                               year, month, day, doy,
                                               output_directory,
                                               overwrite = overwrite)
         if(return_code < 0):
             IONEX_name = make_IONEX_filename('cod',1,year,doy)
-            print ( '....1  IONEX_name', IONEX_name)
+            if DEBUG_SET: 
+                print ( '....1  IONEX_name', IONEX_name)
             return_code = get_IONEX_file_from_web(IONEX_name,
                                                   year, month, day, doy,
                                                   output_directory,
                                                   overwrite = overwrite)
         if(return_code >= 0):
             IONEX_filename = output_directory + '/' + IONEX_name
-            print ( '.... final IONEX_name', IONEX_name)
+            if DEBUG_SET: 
+              print ( '.... final IONEX_name', IONEX_name)
             s1,s2 = find_DCB_info_from_IONEX(IONEX_filename)
         else:
             s1 = {}
@@ -1800,7 +1843,7 @@ standard_RINEX_bias_correction_wrapper.station_bias_CODE_monthly = None
 
 
 ################################################################################
-def rough_satellite_bias_correction(S, E, debug_level=0):
+def rough_satellite_bias_correction(S, E):
     """perform a rough correction for satellite timing biases
 
 Satellite transmitter timing biases can cause apparent negative STEC
@@ -1819,9 +1862,6 @@ station receiver biases as well.
 
 S            I  list of STEC np arrays
 E            I  corresponding list of Elevation np arrays
-debug_level  I  How much info to print out
-                0 nothing
-                1 some
 """
     elevation_limit = 20.0 * M_DEG2RAD
     # How many stations total?
@@ -1846,7 +1886,7 @@ debug_level  I  How much info to print out
                         min_STEC2 = this_stec
                     else:
                         min_STEC = this_stec
-        if(debug_level > 0):
+        if(DEBUG_SET):
             print ( "For satellite %2d got bias min %10.3f"%(s,min_STEC))
         if(min_STEC == +1E300): continue
         if(min_STEC > 0.5): continue   # no correction for satellite biases
@@ -1920,13 +1960,15 @@ xyz      O  array of station's XYZ position, in m
     # Now, for all times, convert the data
     data_file_list = []
     for MJD in range(int(MJD_start),int(MJD_end)+1):
-        print ( "Doing day", MJD)
+        if DEBUG_SET:
+           print ( "Doing day", MJD)
         # create the bias corrected filename
         y,m,d,f = jma_tools.get_ymdf_from_JD(jma_tools.get_JD_from_MJD(MJD))
         doy = jma_tools.get_day_of_year(y,m,d)
         RINEX_B_name = make_RINEX_filename(station_code, 'B', y, doy)
         RINEX_B_path = data_directory + '/' + RINEX_B_name
-        print ( "Making file ", RINEX_B_path)
+        if DEBUG_SET:
+          print ( "Making file ", RINEX_B_path)
         # Check if it exists
         if((os.path.isfile(RINEX_B_path)) and (not main_file_overwrite)):
             warnings.warn("File '%s' already exists.  Using existing file."%RINEX_B_path)
@@ -2528,7 +2570,7 @@ A                 O  Output python list of STEC values.  Each element of the
                                                     overwrite
                                                     )
     # Perform a rough bias correction
-    rough_satellite_bias_correction([STEC],[El],0)
+    rough_satellite_bias_correction([STEC],[El])
     # Now to calculate the apparent Az,El using the AlbusIonosphere software
     retval = AlbusIonosphere.set_reference_time(year,month,day,0,0,0.0)
     if(retval < 0):
