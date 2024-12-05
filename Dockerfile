@@ -29,7 +29,9 @@ RUN docker-apt-install build-essential\
                        python3-urllib3 \
                        unzip \
                        python3-nose \
-                       python3-requests
+                       python3-requests \
+                       python3-setuptools \
+                       python3-scipy
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-$GNUCOMPILER 100 && \
     update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-$GNUCOMPILER 100 && \
