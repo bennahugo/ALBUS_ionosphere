@@ -38,4 +38,4 @@ docker run \
     --env ALBUS_TESTCASE_OUTPUT=/test_output \
     --rm \
     --user $(id -u jenkins):$(id -g jenkins) \
-    "$IMAGENAME:$BUILD_NUMBER" -m pynose /albus_waterhole
+    "$IMAGENAME:$BUILD_NUMBER" -m nose /albus_waterhole
