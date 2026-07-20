@@ -48,7 +48,7 @@ RUN gcc -ansi -O2 -static rnx2crx.c -o /usr/local/bin/RNX2CRX && \
 
 WORKDIR /src/ALBUS
 RUN python3.10 -m venv build_env 
-RUN build_env/bin/pip install -U pip build wheel nose
+RUN build_env/bin/pip install -U pip build wheel pynose
 
 # ---------- COMPILE ALBUS ----------
 # Step 1 setup directory structure and move source code into container
